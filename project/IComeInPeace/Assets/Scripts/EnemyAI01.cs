@@ -3,12 +3,12 @@ using System.Collections;
 
 public class EnemyAI01 : MonoBehaviour {
 
-	public int enemyLife = 40;
-	int totalLife = 40;
+	int enemyLife;
+	public int totalLife;
 	public GameObject EnemyBullet;
 	Transform target;
-	public int moveSpeed = 100;
-	float range =200f;
+	public int moveSpeed;
+	public float attackRange;
 	Transform thisTransform;
 	Rigidbody2D thisBody;
 	float fireRate = 2f;
@@ -23,6 +23,7 @@ public class EnemyAI01 : MonoBehaviour {
 		thisBody = GetComponent<Rigidbody2D> ();
 		thisTransform = GetComponent<Transform>();
 		enemyAnimator = GetComponent<Animator> ();
+		enemyLife = totalLife;
 	}
 	
 	void Start()
@@ -50,7 +51,8 @@ public class EnemyAI01 : MonoBehaviour {
 			GameObject go = Instantiate(EnemyBullet, transform.position,transform.rotation) as GameObject;
 			//go.transform.SetParent(gameObject.transform);
 			Vector2 toTarget = new Vector2(target.position.x - transform.position.x , target.position.y- transform.position.y);
-			go.GetComponent<Rigidbody2D>().AddForce(toTarget * 100, ForceMode2D.Force);
+			toTarget.Normalize();
+			go.GetComponent<Rigidbody2D>().AddForce(toTarget * 20000, ForceMode2D.Force);
 		}
 	}
 	void DirectionAnim(Vector3 direction)
@@ -69,8 +71,8 @@ public class EnemyAI01 : MonoBehaviour {
 	}
 	void Update () 
 	{
-		if (target) {
-			if (Vector3.Distance (target.position, thisTransform.position) > range) {
+		if (target && Vector3.Distance (target.position, thisTransform.position) < attackRange + 100f) {//followrange
+			if (Vector3.Distance (target.position, thisTransform.position) > attackRange) {
 				Vector3 dir = target.position - thisTransform.position;
 				dir.Normalize ();
 				DirectionAnim(dir);

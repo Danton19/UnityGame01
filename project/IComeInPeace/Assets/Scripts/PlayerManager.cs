@@ -11,12 +11,14 @@ public class PlayerManager : MonoBehaviour {
 	Animator playerAnim;
 	Vector2 movement;
 	Vector2 shootDir;
-	RectTransform lifeText;
+	RectTransform lifePlayer;
+	float initWidth;
 	void Awake()
 	{
 		playerBody = GetComponent<Rigidbody2D> ();
 		playerAnim = GetComponent<Animator> ();
-		lifeText = GameObject.Find ("LifeText").GetComponent<RectTransform> ();
+		lifePlayer = GameObject.Find ("LifePlayer").GetComponent<RectTransform> ();
+		initWidth = lifePlayer.rect.width;
 	}
 	// Use this for initialization
 	private void PlayerMovement()
@@ -35,19 +37,17 @@ public class PlayerManager : MonoBehaviour {
 	void ApplyDamage(int damage)
 	{
 		playerLife -= damage;
-		lifeText.sizeDelta = new Vector2( 60+playerLife, 30);
+		lifePlayer.sizeDelta = new Vector2( (initWidth / 100) * playerLife, 30);
 		if (playerLife <= 0)
 			Destroy (gameObject);
 	}
-	// Update is called once per frame
+
 	void Update () 
 	{
 		PlayerMovement ();
 		if (Input.GetKeyDown ("space")) 
 		{
-
 			GameObject go = Instantiate(PlayerBullet, transform.position,transform.rotation) as GameObject;
-			//go.transform.SetParent(gameObject.transform);
 			go.GetComponent<Rigidbody2D>().AddForce(shootDir * 20000, ForceMode2D.Force);
 		}
 	}

@@ -3,24 +3,21 @@ using System.Collections;
 
 public class BulletsScript : MonoBehaviour {
 	GameObject bulletParent;
-	void Start () 
-	{
-		/*bulletParent = this.transform.parent.gameObject;
-		transform.forward = bulletParent.transform.forward; */
-	}
+	public int damage;
+
 	void OnTriggerEnter2D(Collider2D coll) 
 	{
 		if (gameObject.tag == "EnemyShoot") 
 		{
 			if (coll.gameObject.tag == "Player"){
-				coll.gameObject.SendMessage ("ApplyDamage", 20);
+				coll.gameObject.SendMessage ("ApplyDamage", damage);
 				Destroy(gameObject);
 			}
 		}
 		if (gameObject.tag == "PlayerShoot") 
 		{
 			if (coll.gameObject.tag == "Enemy"){
-				coll.gameObject.SendMessage ("ApplyDamage", 20);
+				coll.gameObject.SendMessage ("ApplyDamage", damage);
 				Destroy(gameObject);
 			}
 		}
