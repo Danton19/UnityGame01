@@ -45,7 +45,7 @@ public class EnemyAI01 : MonoBehaviour {
 			if (Vector3.Distance (target.position, thisTransform.position) > range) {
 				Vector3 dir = target.position - thisTransform.position;
 				dir.Normalize ();
-				//thisTransform.position += dir * moveSpeed * Time.deltaTime;
+				//Set HDir and YDir
 				thisBody.velocity = dir * moveSpeed;
 			} else {
 				AttackOnPlayer ();
