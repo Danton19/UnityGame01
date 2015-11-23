@@ -49,7 +49,7 @@ namespace MainGame
 		//Initializes the game for each level.
 		public void InitGame ()
 		{
-			//orden: canvas, player, level (arreglar todo esto)
+			//orden: canvas, player, level (optimizar todo esto)
 			Instantiate (canvasRef);
 			instancePlayer = Instantiate (playerRef,transform.position,Quaternion.identity) as GameObject;
 			playerScript = instancePlayer.GetComponent<PlayerManager> ();
@@ -76,7 +76,7 @@ namespace MainGame
 
 		void EnemySet (Transform newPos)
 		{
-			int enemyRandom = (int)Mathf.Round (Random.Range (0, 1));
+			int enemyRandom = (int)Mathf.Round (Random.Range (0f, 1.1f));
 			GameObject newEnemy = Instantiate (enemyList [enemyRandom], newPos.position, Quaternion.identity) as GameObject;
 			newEnemy.transform.SetParent (GameObject.FindGameObjectWithTag ("MapLevel").GetComponent<Transform> ());
 			totalEnemies++;
@@ -85,7 +85,7 @@ namespace MainGame
 		public void Restart ()
 		{
 			Destroy (currentLvl);
-			Invoke("LevelSet",2f);
+			Invoke("LevelSet",0.5f);
 		}
 		
 		public void GameOver (bool win)

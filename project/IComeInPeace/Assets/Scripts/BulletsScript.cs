@@ -4,6 +4,7 @@ using System.Collections;
 public class BulletsScript : MonoBehaviour {
 	GameObject bulletParent;
 	public int damage;
+	public bool isRay;
 
 	void OnTriggerEnter2D(Collider2D coll) 
 	{
@@ -11,14 +12,16 @@ public class BulletsScript : MonoBehaviour {
 		{
 			if (coll.gameObject.tag == "Player"){
 				coll.gameObject.SendMessage ("ApplyDamage", damage);
-				Destroy(gameObject);
+				if(!isRay)
+					Destroy(gameObject);
 			}
 		}
 		if (gameObject.tag == "PlayerShoot") 
 		{
 			if (coll.gameObject.tag == "Enemy"){
 				coll.gameObject.SendMessage ("ApplyDamage", damage);
-				Destroy(gameObject);
+				if(!isRay)
+					Destroy(gameObject);
 			}
 		}
 

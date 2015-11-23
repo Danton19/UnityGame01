@@ -14,6 +14,7 @@ namespace MainGame
 		Animator playerAnim;
 		Vector2 movement;
 		Vector2 shootDir;
+		bool isShooting = false;
 		RectTransform lifePlayer;
 		float initWidth;
 
@@ -47,12 +48,22 @@ namespace MainGame
 				transform.position = new Vector3 (-100f, -100, 0);
 		}
 
+		void AttackWeapon()
+		{
+			GameObject go = Instantiate (PlayerBullet, transform.position, transform.rotation) as GameObject;
+			if (!go.GetComponent<BulletsScript> ().isRay)
+				go.GetComponent<Rigidbody2D> ().AddForce (shootDir * 20000, ForceMode2D.Force);
+			else 
+			{
+
+			}
+		}
+
 		void Update ()
 		{
 			PlayerMovement ();
 			if (Input.GetKeyDown ("space")) {
-				GameObject go = Instantiate (PlayerBullet, transform.position, transform.rotation) as GameObject;
-				go.GetComponent<Rigidbody2D> ().AddForce (shootDir * 20000, ForceMode2D.Force);
+				AttackWeapon();
 			}
 		}
 	}
