@@ -6,24 +6,26 @@ namespace MainGame
 {
 	public class PlayerManager : MonoBehaviour
 	{
-
+		GameObject weaponRef;
 		public int playerLife = 100;
-		public GameObject PlayerBullet;
 		public float speed = 5f;
 		Rigidbody2D playerBody;
 		Animator playerAnim;
 		Vector2 movement;
-		Vector2 shootDir;
+		Vector2 shootDir; //se basa en el movimiento, diferenciar movimiento de direccion de ataque?
 		bool isShooting = false;
 		RectTransform lifePlayer;
-		float initWidth;
+		float initWidth; //pesimo esta variable, hay q arreglar esto
+		RectTransform weaponEnergy;
 
 		void Awake ()
 		{
 			playerBody = GetComponent<Rigidbody2D> ();
 			playerAnim = GetComponent<Animator> ();
 			lifePlayer = GameObject.Find ("LifePlayer").GetComponent<RectTransform> ();
+			weaponEnergy = GameObject.Find ("WeaponEnergy").GetComponent<RectTransform> ();
 			initWidth = lifePlayer.rect.width;
+			weaponRef = GameObject.Find ("Weapon");
 		}
 		// Use this for initialization
 		private void PlayerMovement ()
@@ -48,22 +50,17 @@ namespace MainGame
 				transform.position = new Vector3 (-100f, -100, 0);
 		}
 
-		void AttackWeapon()
+		void UseWeapon()
 		{
-			GameObject go = Instantiate (PlayerBullet, transform.position, transform.rotation) as GameObject;
-			if (!go.GetComponent<BulletsScript> ().isRay)
-				go.GetComponent<Rigidbody2D> ().AddForce (shootDir * 20000, ForceMode2D.Force);
-			else 
-			{
-
-			}
+			weaponRef.GetComponent<WeaponBehavior> ().Shoot (shootDir);
+			weaponEnergy.sizeDelta = new Vector2 ((initWidth / 100) * weaponRef.GetComponent<WeaponBehavior> ().Energy, 30);
 		}
 
 		void Update ()
 		{
 			PlayerMovement ();
 			if (Input.GetKeyDown ("space")) {
-				AttackWeapon();
+				UseWeapon();
 			}
 		}
 	}
