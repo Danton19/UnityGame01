@@ -5,7 +5,7 @@ public class CameraScript : MonoBehaviour {
 
 	private Transform target;
 	public float yOffset = 0;
-	
+	//Ryka comment
 	
 	void Update() 
 	{
