@@ -78,6 +78,7 @@ namespace MainGame
 		{
 			int enemyRandom = (int)Mathf.Round (Random.Range (0f, 1.1f));
 			GameObject newEnemy = Instantiate (enemyList [enemyRandom], newPos.position, Quaternion.identity) as GameObject;
+			//New level? Tag it with "MapLevel"
 			newEnemy.transform.SetParent (GameObject.FindGameObjectWithTag ("MapLevel").GetComponent<Transform> ());
 			totalEnemies++;
 		}
