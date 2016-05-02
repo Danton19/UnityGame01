@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\EnemyAI01.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\HealthBarBasic.cs" />
+     <Compile Include="Assets\Scripts\MeleeTriggerScript.cs" />
      <Compile Include="Assets\Scripts\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\WeaponBehavior.cs" />
      <Compile Include="Assets\Tiled2Unity\Scripts\Runtime\SortingLayerExposed.cs" />
